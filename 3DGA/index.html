@@ -198,7 +198,7 @@
                 type="video/mp4">
       </video>
       <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Real-Time rendering and relighting achieved by our GIR.
+        <span class="dnerf">Demo video
       </h2>
     </div>
   </div>
@@ -270,8 +270,7 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
-          This paper presents 3DGA, a novel method for creating body and hand drivable 3D avatars based on 3D Gaussians easily captured from monocular videos. Compared with existing methods, our work adds hand pose control and deal with unbalanced aggregation and initialization bias faced by Gaussian Avatar representation. Specifically, we first utilize a two-stage pose refinement method to obtain accurate SMPL-X pose from input images, providing an correct mapping between the pixels of a training image and the SMPL-X model. It uses an attention-aware network and an optimization scheme to align the normal and silhoutte between estimated SMPL-X body and the real body in image. Second, we propose an iterative re-initialization strategy to handle local aggregation and initialization sensitive problems. This strategy iteratively redistributes the Avatar's Gaussian points, making it evenly distributed near the groundtruth human body surface by applying meshing, resampling and regaussian operation. As a result, higher-quality rendering can be achieved. Extensive experimental analyses validate the effectiveness of the proposed model, demonstrating that it achieves state-of-the-art performance in photorealistic novel view synthesis while offering fine-grained control over the human body and hand pose. 
-        </div>
+          This paper presents 3DGA, a novel method for creating expressive 3D avatars with high-fidelity reconstructions of body and hands based on 3D Gaussians. The key contributions are twofold. First, we design a two-stage pose estimation method to obtain an accurate SMPL-X pose from input images, providing a correct mapping between the pixels of a training image and the SMPL-X model. It uses an attention-aware network and an optimization scheme to align the normal and silhouette between the estimated SMPL-X body and the real body in the image. Second, we propose an iterative re-initialization strategy to handle unbalanced aggregation and initialization bias. This strategy iteratively redistributes the avatar's Gaussian points, making it evenly distributed near the human body surface by applying meshing, resampling and re-Gaussian operations. As a result, higher-quality rendering can be achieved. Extensive experimental analyses validate the effectiveness of the proposed model, demonstrating that it achieves state-of-the-art performance in photorealistic novel view synthesis while offering fine-grained control over the human body and hand pose.  </div>
       </div>
     </div>
     <!--/ Abstract. -->
@@ -285,7 +284,7 @@
                   frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div> -->
         <video id="tv" autoplay muted loop playsinline width="100%">
-          <source src="./static/videos/video_b.mp4"
+          <source src="./static/videos/driver_9.mp4"
                   type="video/mp4">
         </video>
       </div>
@@ -302,21 +301,52 @@
       <div class="column is-full-width">
         <h2 class="title is-3">Method</h2>
         <!-- Interpolating. -->
-        <h3 class="title is-4">Pipeline of GIR</h3>
-        <div class="content has-text-justified">
+          <div class="content has-text-justified">
           <p>
-            In this paper, we answer this question by introducing GIR, a novel inverse rendering framework based on 3DGS that estimates material properties, geometry, and illumination from multi-view images in high fidelity. We address the challenge of accurately modeling surface normals in 3D Gaussian representations. The complexity arises from the discrete and often in-homogeneous distribution of these Gaussians. This makes the learning of accurate normals nontrivial without the use of regularization. Moreover, the normal regularization methods designed for learning implicit Signed Distance Functions (SDF), such as the one used in NeuS cannot be applied in this context. We thus propose an efficient self-regularization method that ensures the shortest axis of each visible 3D Gaussian forms an obtuse angle with the camera's principal axis. Furthermore, we propose an approach for indirect illumination reconstruction that is suited for 3D Gaussian representation. Extensive experimental analyses have demonstrated that our proposed approach significantly outperforms existing methods on various datasets across multiple tasks.
-          </p>
-          <img src="./static/images/pipeline.png" 
+            The overall framework. Given a monocular video of self-rotation and hand movements, we obtain refined SMPL-X parameters for both body and hand poses. Next, utilizing the whole-body skeleton, we initially adjust the Gaussian avatar model in the canonical space to match the pose displayed in the image. To ensure consistency with image observations, we employ differentiable rendering and optimize the Gaussian properties of the avatar. We introduce an iterative re-initialization mechanism during the optimization process to enhance rendering quality and ensure an even distribution of Gaussian points near the surface. The Gaussian avatar model can then adapt to novel poses from collected videos or generated pose sequences.</p>
+          <img src="./static/images/fig2.png" 
                class="interpolation-image" 
                alt="Interpolate start reference image" 
-               style="width: 60%; height: auto; display: block; margin: 0 auto;">
+               style="width: 80%; height: auto; display: block; margin: 0 auto;">
           
-        <img src="./static/images/toaster.png" 
-        class="interpolation-image" 
-        alt="Interpolate start reference image" 
-        style="width: 60%; height: auto; display: block; margin: 0 auto;">
-        </div>
+<br><br>
+               <section class="hero teaser">
+                <div class="container is-max-desktop">
+                  <div class="hero-body">
+                    <h2 class="subtitle has-text-centered">
+                      <span class="dnerf">More results
+                    </h2>
+                    <video id="teaser" autoplay muted loop playsinline height="100%">
+                      <source src="./static/videos/driver_12_1.mp4"
+                              type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+              </section>
+
+              <br><br>
+              <section class="hero teaser">
+               <div class="container is-max-desktop">
+                 <div class="hero-body">
+                   <video id="teaser" autoplay muted loop playsinline height="100%">
+                     <source src="./static/videos/driver_6_full.mp4"
+                             type="video/mp4">
+                   </video>
+                 </div>
+               </div>
+             </section>
+
+             <br><br>
+               <section class="hero teaser">
+                <div class="container is-max-desktop">
+                  <div class="hero-body">
+                    <video id="teaser" autoplay muted loop playsinline height="100%">
+                      <source src="./static/videos/driver_12_2.mp4"
+                              type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+              </section>
         <!-- <div class="columns is-vcentered interpolation-panel">
           <div class="column is-3 has-text-centered">
             <img src="./static/images/interpolate_start.jpg"
@@ -369,39 +399,7 @@
     <div class="columns is-centered">
 
       <!-- Visual Effects. -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Normal Estimation</h2>
-          <p>
-            Gaussians present on the surface and observed from the viewpoint should be visible. Any Gaussian that is not visible, as determined by $\mathbf{n} \cdot \mathbf{v} \leq 0$, does not contribute to color calculations. Therefore, the normal direction of these invisible Gaussians needs to be modified in order to reconstruct the desired image.
-          </p>
-          <img src="./static/images/adjust_normals.png"
-                 class="interpolation-image"
-                 alt="Interpolate start reference image."/>
-          <!-- <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/dollyzoom-stacked.mp4"
-                    type="video/mp4">
-          </video> -->
-        </div>
-      </div>
-      <!--/ Visual Effects. -->
-
-      <!-- Matting. -->
-      <div class="column">
-        <h2 class="title is-3">Indirect Illumination</h2>
-        <div class="columns is-centered">
-          <div class="column content">
-            <p>
-              The illustration of our indirect illumination reconstruction: Instead of employing recursive ray tracing, we utilize spherical harmonic coefficients to encode the view direction, enabling the simulation of indirect illumination. 
-            </p>
-            <img src="./static/images/ray_tracing.png"
-                 class="interpolation-image"
-                 alt="Interpolate start reference image."/>
-          </div>
-
-        </div>
-      </div>
-    </div>
+     
     <!--/ Matting. -->
 
     
@@ -441,12 +439,11 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{shi2023gir,
-  author    = {Shi, Yahao and Wu, Yanmin and Wu, Chenming and Liu, Xing and Zhao, Chen and Feng, Haocheng and Liu, Jingtuo and Zhang, Liangjun and Zhang, Jian and Zhou, Bin and Ding, Errui and Wang, Jingdong},
-  title     = {GIR: 3D Gaussian Inverse Rendering for Relightable Scene Factorization},
+    <pre><code>@article{liu24-3dga,
+  author    = {Liu, Xinqi and Wu, Chenming and Liu, Xing and Liu, Jialun and Zhao, Chen and Feng, Haocheng and Ding, Errui and Wang, Jingdong},
+  title     = {3DGA: Reconstructing Expressive 3D Gaussian Avatar from Monocular Video},
   journal   = {Arxiv},
-  year      = {2023},
-  eprint    = {2312.05133},
+  year      = {2024},
 }</code></pre>
   </div>
 </section>
