@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+        content="GGRt: Towards Pose-free Generalizable 3D Gaussian Splatting in Real-time.">
   <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GEA: Reconstructing Expressive 3D Gaussian Avatar from Monocular Video</title>
+  <title>GGRt: Towards Pose-free Generalizable 3D Gaussian Splatting in Real-time</title>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
@@ -76,8 +76,8 @@
           <a class="navbar-item" href="https://3dgir.github.io">
             GIR
           </a>
-          <a class="navbar-item" href="https://3d-aigc.github.io/GGRt">
-            GGRt
+          <a class="navbar-item" href="https://3d-aigc.github.io/GEA">
+            GEA
           </a>
           <!-- <a class="navbar-item" href="https://latentfusion.github.io">
             LatentFusion
@@ -98,21 +98,19 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">GEA: Reconstructing Expressive 3D Gaussian Avatar from Monocular Video</h1>
+          <h1 class="title is-1 publication-title">GGRt: Towards Pose-free Generalizable 3D Gaussian Splatting in Real-time</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://www.liuxinqi.cn/">Xinqi Liu</a>,</span>
+              <a href="https://scholar.google.com/citations?user=4dokjDoAAAAJ">Hao Li</a>,</span>
+            <span class="author-block">
+              <a href="">Yuanyuan Gao</a>,</span>
+            <span class="author-block">
+              <a href="https://zdw-nwpu.github.io/dingwenz.github.com/">Dingwen Zhang</a>,</span>
             <span class="author-block">
               <a href="https://scholar.google.com/citations?user=eOkkQWUAAAAJ&hl=en&oi=ao">Chenming Wu</a>,
             </span>
             <span class="author-block">
-              <a href="https://scholar.google.com/citations?user=bdVU63IAAAAJ&hl=en">Xing Liu</a>,
-            </span>
-            <span class="author-block">
-              <a href="https://scholar.google.com/citations?user=OkMMP2AAAAAJ&hl=zh-CN">Jialun Liu</a>,
-            </span>
-            <span class="author-block">
-              <a href="https://openreview.net/profile?id=~Jinbo_Wu1">Jinbo Wu</a>,
+              <a href="">Yalun Dai</a>,
             </span>
             <br>
             <span class="author-block">
@@ -127,6 +125,9 @@
             <span class="author-block">
               <a href="https://jingdongwang2017.github.io/">Jingdong Wang</a>
             </span>
+            <span class="author-block">
+              <a href="https://scholar.google.ae/citations?user=xrqsoesAAAAJ">Junwei Han</a>
+            </span>
           </div>
 
           <div class="is-size-5 publication-authors">
@@ -138,7 +139,7 @@
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://arxiv.org/pdf/2402.16607.pdf"
+                <a href="https://arxiv.org/pdf/2403.10147.pdf"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
@@ -147,7 +148,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2402.16607"
+                <a href="https://arxiv.org/abs/2403.10147"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -172,7 +173,7 @@
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
-                  <span>Code</span>
+                  <span>Code (Coming soon)</span>
                   </a>
               </span>
               <!-- Dataset Link. -->
@@ -197,11 +198,11 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/video_a.mp4"
+        <source src="./static/videos/ggrt_1.mp4"
                 type="video/mp4">
       </video>
       <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Demo video. Hand jitter originates from the unsmoothed raw motion capture data. 
+        <span class="dnerf">Generalized results on Waymo Open dataset. Left: RGB; Right: Depth.
       </h2>
     </div>
   </div>
@@ -273,7 +274,8 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
-          This paper presents GEA, a novel method for creating expressive 3D avatars with high-fidelity reconstructions of body and hands based on 3D Gaussians. The key contributions are twofold. First, we design a two-stage pose estimation method to obtain an accurate SMPL-X pose from input images, providing a correct mapping between the pixels of a training image and the SMPL-X model. It uses an attention-aware network and an optimization scheme to align the normal and silhouette between the estimated SMPL-X body and the real body in the image. Second, we propose an iterative re-initialization strategy to handle unbalanced aggregation and initialization bias. This strategy iteratively redistributes the avatar's Gaussian points, making it evenly distributed near the human body surface by applying meshing, resampling and re-Gaussian operations. As a result, higher-quality rendering can be achieved. Extensive experimental analyses validate the effectiveness of the proposed model, demonstrating that it achieves state-of-the-art performance in photorealistic novel view synthesis while offering fine-grained control over the human body and hand pose.  </div>
+          This paper presents GGRt, a novel approach to generalizable novel view synthesis that alleviates the need for real camera poses, complexity in processing high-resolution images, and lengthy optimization processes, thus facilitating stronger applicability of 3D Gaussian Splatting (3D-GS) in real-world scenarios. Specifically, we design a novel joint learning framework that consists of an Iterative Pose Optimization Network (IPO-Net) and a Generalizable 3D-Gaussians (G-3DG) model. With the joint learning mechanism, the proposed framework can inherently estimate robust relative pose information from the image observations and thus primarily alleviate the requirement of real camera poses. Moreover, we implement a deferred back-propagation mechanism that enables high-resolution training and inference, overcoming the resolution constraints of previous methods. To enhance the speed and efficiency, we further introduce a progressive Gaussian cache module that dynamically adjusts during training and inference. As the first pose-free generalizable 3D-GS framework, GGRt achieves inference at $\ge$ 5 FPS and real-time rendering at $\ge$ 100 FPS. Through extensive experimentation, we demonstrate that our method outperforms existing NeRF-based pose-free techniques in terms of inference speed and effectiveness. It can also approach the real pose-based 3D-GS methods. Our contributions provide a significant leap forward for the integration of computer vision and computer graphics into practical applications, offering state-of-the-art results on LLFF, KITTI, and Waymo Open datasets and enabling real-time rendering for immersive experiences.
+        </div>
       </div>
     </div>
     <!--/ Abstract. -->
@@ -286,15 +288,13 @@
           <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
                   frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div> -->
-        <video id="tv" autoplay muted loop playsinline width="100%">
-          <source src="./static/videos/driver_9.mp4"
-                  type="video/mp4">
-        </video>
+        
       </div>
     </div>
     <!--/ Paper video. -->
   </div>
 </section>
+
 
 
 <section class="section">
@@ -306,8 +306,10 @@
         <!-- Interpolating. -->
           <div class="content has-text-justified">
           <p>
-            The overall framework. Given a monocular video of self-rotation and hand movements, we obtain refined SMPL-X parameters for both body and hand poses. Next, utilizing the whole-body skeleton, we initially adjust the Gaussian avatar model in the canonical space to match the pose displayed in the image. To ensure consistency with image observations, we employ differentiable rendering and optimize the Gaussian properties of the avatar. We introduce an iterative re-initialization mechanism during the optimization process to enhance rendering quality and ensure an even distribution of Gaussian points near the surface. The Gaussian avatar model can then adapt to novel poses from collected videos or generated pose sequences.</p>
-          <img src="./static/images/fig2.png" 
+            An overview of our method, demonstrated by using two continuous training steps given \(N\) selected nearby images. In the first training step, reference views are selected from nearby time \(r\in \mathcal{N} (t)\), then the IPO-Net estimates the relative poses between reference and target image { 
+            \(\mathbf{T}_{r\rightarrow t}\) }for 3D-Gaussian predictions. Then   \(\mathbf{I}^1_r \cdots \mathbf{I}^4_r\) forms three image pairs and is fed into the G-3DG model to predict Gaussians \(\mathbf{G}_1\cdots\mathbf{G}_3\) for novel view splatting and store them in Gaussians cache. In the second step, since {\(\mathbf{I}^2_r \cdots \mathbf{I}^4_r\)} are collaboratively used by the last step, we directly query their image ID in the Cache Gaussians and pick up corresponding Gaussian points \(\mathbf{G}_2,\mathbf{G}_3\) with newly predicted \(\mathbf{G}_4\) for novel view splatting.   
+          </p>
+          <img src="./static/images/framework.jpg" 
                class="interpolation-image" 
                alt="Interpolate start reference image" 
                style="width: 80%; height: auto; display: block; margin: 0 auto;">
@@ -320,36 +322,29 @@
                       <span class="dnerf">More results
                     </h2>
                     <video id="teaser" autoplay muted loop playsinline height="100%">
-                      <source src="./static/videos/driver_12_1.mp4"
+                      <source src="./static/videos/003.mp4"
                               type="video/mp4">
                     </video>
-                  </div>
-                </div>
-              </section>
-
-              <br><br>
-              <section class="hero teaser">
-               <div class="container is-max-desktop">
-                 <div class="hero-body">
-                   <video id="teaser" autoplay muted loop playsinline height="100%">
-                     <source src="./static/videos/driver_6_full.mp4"
-                             type="video/mp4">
-                   </video>
-                 </div>
-               </div>
-             </section>
-
-             <br><br>
-               <section class="hero teaser">
-                <div class="container is-max-desktop">
-                  <div class="hero-body">
                     <video id="teaser" autoplay muted loop playsinline height="100%">
-                      <source src="./static/videos/driver_12_2.mp4"
+                      <source src="./static/videos/036.mp4"
+                              type="video/mp4">
+                    </video>
+                    <video id="teaser" autoplay muted loop playsinline height="100%">
+                      <source src="./static/videos/069.mp4"
+                              type="video/mp4">
+                    </video>
+                    <video id="teaser" autoplay muted loop playsinline height="100%">
+                      <source src="./static/videos/081.mp4"
+                              type="video/mp4">
+                    </video>
+                    <video id="teaser" autoplay muted loop playsinline height="100%">
+                      <source src="./static/videos/126.mp4"
                               type="video/mp4">
                     </video>
                   </div>
                 </div>
               </section>
+
         <!-- <div class="columns is-vcentered interpolation-panel">
           <div class="column is-3 has-text-centered">
             <img src="./static/images/interpolate_start.jpg"
@@ -404,37 +399,6 @@
       <!-- Visual Effects. -->
      
     <!--/ Matting. -->
-
-    
-
-
-    <!-- Concurrent Work. -->
-    <!-- <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Related Links</h2>
-
-        <div class="content has-text-justified">
-          <p>
-            There's a lot of excellent work that was introduced around the same time as ours.
-          </p>
-          <p>
-            <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.
-          </p>
-          <p>
-            <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
-            both use deformation fields to model non-rigid scenes.
-          </p>
-          <p>
-            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
-          </p>
-          <p>
-            There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
-          </p>
-        </div>
-      </div>
-    </div> -->
-    <!--/ Concurrent Work. -->
-
   </div>
 </section>
 
@@ -442,11 +406,11 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{liu24-GEA,
-  author    = {Liu, Xinqi and Wu, Chenming and Liu, Xing and Liu, Jialun and Zhao, Chen and Feng, Haocheng and Ding, Errui and Wang, Jingdong},
-  title     = {GEA: Reconstructing Expressive 3D Gaussian Avatar from Monocular Video},
-  journal   = {Arxiv},
-  year      = {2024},
+    <pre><code>@article{li2024GGRt,
+      title={GGRt: Towards Generalizable 3D Gaussians without Pose Priors in Real-Time}, 
+      author={Hao Li and Yuanyuan Gao and Dingwen Zhang and Chenming Wu and Yalun Dai and Chen Zhao and Haocheng Feng and Errui Ding and Jingdong Wang and Junwei Han},
+      year={2024},
+      eprint={2403.10147},
 }</code></pre>
   </div>
 </section>
@@ -476,7 +440,7 @@
           </p>
         </div>
       </div>
-      <a href="https://mapmyvisitors.com/web/1bvv6" title="Visit tracker"><img src="https://mapmyvisitors.com/map.png?d=5PQUfQPXvZG9KqBuUI5sbsNq1GL87SvuWmnpeewoxJY&cl=ffffff"></a>
+      <a href="https://mapmyvisitors.com/web/1bvxj" title="Visit tracker"><img src="https://mapmyvisitors.com/map.png?d=kSH52UUctXHgyZTvsD38_H_styzXoRq6qG_cg4tttWI&cl=ffffff"></a>
     </div>
     
   </div>
