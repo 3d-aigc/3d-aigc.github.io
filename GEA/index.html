@@ -6,7 +6,7 @@
         content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
   <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GEA: Reconstructing Expressive 3D Gaussian Avatar from Monocular Video</title>
+  <title>GVA: Reconstructing Vivid 3D Gaussian Avatars from Monocular Videos</title>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
@@ -98,7 +98,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">GEA: Reconstructing Expressive 3D Gaussian Avatar from Monocular Video</h1>
+          <h1 class="title is-1 publication-title">GVA: Reconstructing Vivid 3D Gaussian Avatars from Monocular Videos</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://www.liuxinqi.cn/">Xinqi Liu</a>,</span>
@@ -273,7 +273,8 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
-          This paper presents GEA, a novel method for creating expressive 3D avatars with high-fidelity reconstructions of body and hands based on 3D Gaussians. The key contributions are twofold. First, we design a two-stage pose estimation method to obtain an accurate SMPL-X pose from input images, providing a correct mapping between the pixels of a training image and the SMPL-X model. It uses an attention-aware network and an optimization scheme to align the normal and silhouette between the estimated SMPL-X body and the real body in the image. Second, we propose an iterative re-initialization strategy to handle unbalanced aggregation and initialization bias. This strategy iteratively redistributes the avatar's Gaussian points, making it evenly distributed near the human body surface by applying meshing, resampling and re-Gaussian operations. As a result, higher-quality rendering can be achieved. Extensive experimental analyses validate the effectiveness of the proposed model, demonstrating that it achieves state-of-the-art performance in photorealistic novel view synthesis while offering fine-grained control over the human body and hand pose.  </div>
+          In this paper, we present a novel method that facilitates the creation of vivid 3D Gaussian avatars from monocular video inputs (GVA). Our innovation lies in addressing the intricate challenges of delivering high-fidelity human body reconstructions and aligning 3D Gaussians with human skin surfaces accurately. The key contributions of this paper are twofold. Firstly, we introduce a pose refinement technique to improve hand and foot pose accuracy by aligning normal maps and silhouettes. Precise pose is crucial for correct shape and appearance reconstruction. Secondly, we address the problems of unbalanced aggregation and initialization bias that previously diminished the quality of 3D Gaussian avatars, through a novel surface-guided re-initialization method that ensures accurate alignment of 3D Gaussian points with avatar surfaces. Experimental results demonstrate that our proposed method achieves high-fidelity and vivid 3D Gaussian avatar reconstruction. Extensive experimental analyses validate the performance qualitatively and quantitatively, demonstrating that it achieves state-of-the-art performance in photo-realistic novel view synthesis while offering fine-grained control over the human body and hand pose.
+        </div>
       </div>
     </div>
     <!--/ Abstract. -->
@@ -306,7 +307,7 @@
         <!-- Interpolating. -->
           <div class="content has-text-justified">
           <p>
-            The overall framework. Given a monocular video of self-rotation and hand movements, we obtain refined SMPL-X parameters for both body and hand poses. Next, utilizing the whole-body skeleton, we initially adjust the Gaussian avatar model in the canonical space to match the pose displayed in the image. To ensure consistency with image observations, we employ differentiable rendering and optimize the Gaussian properties of the avatar. We introduce an iterative re-initialization mechanism during the optimization process to enhance rendering quality and ensure an even distribution of Gaussian points near the surface. The Gaussian avatar model can then adapt to novel poses from collected videos or generated pose sequences.</p>
+            The framework utilizes a monocular video to obtain refined body and hand poses. The Gaussian avatar model is adjusted based on the whole-body skeleton to match the pose in the image. Consistency with image observations is maintained through differentiable rendering and optimization of Gaussian properties. An surfaceguided re-initialization mechanism enhances rendering quality and Gaussian point distribution. The model can adapt to new poses from videos or generated sequences.</p>
           <img src="./static/images/fig2.png" 
                class="interpolation-image" 
                alt="Interpolate start reference image" 
