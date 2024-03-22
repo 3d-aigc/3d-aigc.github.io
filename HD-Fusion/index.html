@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HD-Fusion: Detailed Text-to-3D Generation Leveraging Multiple Noise Estimation</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+  
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/result.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+</head>
+<body>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+        <a class="navbar-item" href="https://keunhong.com">
+        <span class="icon">
+            <i class="fas fa-home"></i>
+        </span>
+        </a>
+  
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            More Research
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https:">
+            </a>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">HD-Fusion: Detailed Text-to-3D Generation Leveraging Multiple Noise Estimation</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <b>Jinbo Wu</b>,</span>
+            <span class="author-block">
+              <b>Xiaobo Gao</b>,</span>
+            <span class="author-block">
+              <b>Xing Liu</b>,
+            </span>
+            <span class="author-block">
+              <b>Zhengyang Shen</b>,<sup></sup>
+            </span>
+            <span class="author-block">
+                <b>Chen Zhao</b>,<sup></sup>
+              </span>
+            <span class="author-block">
+                <b>Haocheng Feng</b>,<sup></sup>
+              </span>
+            <span class="author-block">
+                <b>Jingtuo Liu</b>,<sup></sup>
+              </span>
+            <span class="author-block">
+                <b>Errui Ding</b>,<sup></sup>
+              </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <!-- <span class="footnote"><sup>*</sup>Equal contribution</span> -->
+            <p>
+            <span class="author-block">Department of Computer Vision Technology (VIS), Baidu Inc., China</span>
+            <p>
+            <span style="font-weight: bold;">WACV 2024</span>
+            <p>
+          </div>
+
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="./assets/hdfusion.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2307.16183"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>ArXiv</span>
+                </a>
+              </span>
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="./assets/supp.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Supp_material</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/Gorilla-Lab-SCUT/Fantasia3D"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="my-hr">
+  <hr>
+</div>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            In this paper, we study Text-to-3D content generation
+            leveraging 2D diffusion priors to enhance the quality and
+            detail of the generated 3D models. Recent progress Magic3d in
+            text-to-3D has shown that employing high-resolution (e.g.,
+            512 × 512) renderings can lead to the production of high-
+            quality 3D models using latent diffusion priors. To enable
+            rendering at even higher resolutions, which has the poten-
+            tial to further augment the quality and detail of the mod-
+            els, we propose a novel approach that combines multiple
+            noise estimation processes with a pretrained 2D diffusion
+            prior. Distinct from the MultDiffusion study which binds
+            multiple denoised results to generate images from texts,
+            our approach integrates the computation of scoring distil-
+            lation losses such as SDS loss and VSD loss which are es-
+            sential techniques for the 3D content generation with 2D
+            diffusion priors. We experimentally evaluated the proposed
+            approach. The results show that the proposed approach can
+            generate high-quality details compared to the baselines.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <hr>
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <!-- <iframe src="https://www.youtube.com/embed/Xbzl4HzFiNo?rel=0&amp;modestbranding=1"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
+            <!-- TODO -->
+        </div>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+   
+    <hr>
+
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Generation Results</h2>
+        <div class="content has-text-justified">
+        </div>
+        <table>
+          <tr>
+            <td><img src="./assets/croissant.gif" ></td>
+            <td><img src="./assets/cookie.gif", height="90%"></td>
+          </tr>
+          <tr>
+            <td colspan="1" align="center">A delicious croissant</td>
+            <td colspan="1" align="center">A plate piled high with chocolate chip cookies</td>
+          </tr>
+
+          <tr>
+            <td><img src="./assets/luffy.gif"></td>
+            <td><img src="./assets/deer.gif", height="90%"></td>
+
+          </tr>
+          <tr>
+            <td colspan="1" align="center">Luffy</td>
+            <td colspan="1" align="center">A wooden deer standing on two seprarate wooden skateboards</td>
+          </tr>
+
+          <tr>
+            
+            <td><img src="./assets/messi.gif"></td>
+            <td><img src="./assets/turdorhouse.gif"></td>
+          </tr>
+          <tr>
+            <td colspan="1" align="center">Messi</td>
+            <td colspan="1" align="center">A model of a house in Tudor style</td>
+          </tr>
+
+          <tr>
+            <td><img src="./assets/frog.gif"></td>
+            <td><img src="./assets/giraffe.gif"></td>
+          </tr>
+          <tr>
+            <td colspan="1" align="center">A blue poison-dart frog sitting on a water lily </td>
+            <td colspan="1" align="center">A giraffe</td>
+          </tr>
+
+          <tr>
+            <td><img src="./assets/tulip.gif"></td>
+            <td><img src="./assets/shoe.gif"></td>
+       
+          </tr>
+          <tr>
+            <td colspan="1" align="center">A blue tulip</td>
+            <td colspan="1" align="center">A sport shoe</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Controled SD</h2>
+        <div class="content has-text-justified">
+        </div>
+
+        <table>
+          <tr> 
+            <td colspan="2"><img src="./assets/luffy_nopose.gif"> </td>
+            <td><img src="./assets/luffy_coarse.gif"> </td>
+          </tr>
+          <tr>
+            <td colspan="1" align="center">No Controled</td>
+            <td colspan="1" align="center">Prompt: Luffy</td>
+            <td colspan="1" align="center">Controled-SD</td>
+          </tr>
+        </table>
+
+        <!-- <table>
+          <tr>
+            <td style="position:relative;">
+              <img src="./static/gif/animal.png" height="480" width="480">
+              <div style="position:absolute;top:50%;right:-20px;transform:translate(0,-50%);">
+                <svg width="40" height="20">
+                  <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#48ecc3"/>
+                      <stop offset="100%" stop-color="#4feef1"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M5,10 L30,10" stroke="url(#grad1)" stroke-width="4" marker-end="url(#arrowhead)"/>
+                  <defs>
+                    <marker id="arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                      <path d="M 0 0 L 10 5 L 0 10 z" fill="url(#grad1)" />
+                    </marker>
+                  </defs>
+                </svg>
+              </div>
+            </td>
+            <td><img src="./static/gif/dog_appearance.gif" height="480" width="480"> </td>
+            <td><img src="./static/gif/dog_geometry.gif" height="480" width="480"></td>
+          </tr>
+          <tr>
+            <td colspan="1" align="center"></td>
+            <td colspan="2" align="center">Michelangelo style statue of dog reading news on a cellphone
+            <br></td>
+          </tr>
+        </table>
+
+        <table>
+          <tr>
+            <td style="position:relative;">
+              <img src="./static/gif/man.png"  height="512" width="512">
+              <div style="position:absolute;top:50%;right:-20px;transform:translate(0,-50%);">
+                <svg width="40" height="20">
+                  <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#48ecc3"/>
+                      <stop offset="100%" stop-color="#4feef1"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M5,10 L30,10" stroke="url(#grad1)" stroke-width="4" marker-end="url(#arrowhead)"/>
+                  <defs>
+                    <marker id="arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                      <path d="M 0 0 L 10 5 L 0 10 z" fill="url(#grad1)" />
+                    </marker>
+                  </defs>
+                </svg>
+              </div>
+            </td>
+            <td><img src="./static/gif/gundam_appearance.gif" height="480" width="480"></td>
+            <td><img src="./static/gif/gundam_geometry.gif" height="480" width="480"></td>
+          </tr>
+          <tr>
+            <td colspan="1" align="center"></td>
+            <td colspan="2" align="center">Mobile Suit Gundam
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div> -->
+
+    <hr>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Conclusion</h2>
+        <div class="content has-text-justified">
+          <p>
+            In this paper, we have proposed a multiple noise esti-
+            mation approach that enables memory-efficient training for
+            3D generation within a high-resolution rendering space. We
+            have evaluated the proposed approach through experiments
+            and demonstrated that the proposed approach is effective in
+            generating high-quality 3D models with enhanced details.
+            In addition, we have presented an entire Text-to-3D sys-
+            tem that leverages the proposed approach and ControlNet
+            for geometrically correct 3D content generation through 2D
+            diffusion priors.
+            
+          </p>
+        </div> 
+        <!-- <img src="./static/gif/pipeline.png"> -->
+      </div>
+    </div>
+
+  </div>   
+</section>  
+
+
+    <!--/ Matting. -->
+
+<!-- <div class="gif-group">
+  <div class="gif-images">
+    <img src="./static/gif/bread.gif">
+    <img src="./static/gif/bread_geo.gif">
+  </div>
+  <div class="gif-label">A delicious croissant</div>
+</div>
+
+<div class="gif-group">
+  <div class="gif-images">
+    <img src="./static/gif/bread.gif">
+    <img src="./static/gif/bread_geo.gif">
+  </div>
+  <div class="gif-label">Group 2</div>
+</div> -->
+
+
+<div class="my-hr">
+  <hr>
+</div>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+      @article{wu2023hd,
+        title={Hd-fusion: Detailed text-to-3d generation leveraging multiple noise estimation},
+        author={Wu, Jinbo and Gao, Xiaobo and Liu, Xing and Shen, Zhengyang and Zhao, Chen and Feng, Haocheng and Liu, Jingtuo and Ding, Errui},
+        journal={arXiv preprint arXiv:2307.16183},
+        year={2023}
+      }
+      </code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <!-- <div class="column is-8"> -->
+        <div class="content">
+          <p>
+            This website is constructed using the source code provided by <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, 
+            allow us to express our appreciation for their contribution.                              
+          </p>
+    
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
