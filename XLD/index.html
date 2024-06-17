@@ -1,456 +1,770 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="description"
-        content="XLD: A Cross-Lane Dataset for Benchmarking Novel Driving View Synthesis.">
-  <meta name="keywords" content="Cross-lane, Benchmark, Dataset, Driving, Simulation">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>XLD: A Cross-Lane Dataset for Benchmarking Novel Driving View Synthesis</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
+    <title>XLD: A Cross-Lane Dataset</title>
 
-    function gtag() {
-      dataLayer.push(arguments);
-    }
+    <meta name="description" content="Implicit neural point clouds for improved point-based novel-view synthesis."/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    gtag('js', new Date());
+    <meta property="og:image" content="https://fhahlbohm.github.io/inpc/assets/inpc_model_og.jpg">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="XLD: A Cross-Lane Dataset for Benchmarking Novel Driving View Synthesis"/>
+    <meta property="og:description" content="XLD: A Cross-Lane Dataset for Benchmarking Novel Driving View Synthesis."/>
 
-    gtag('config', 'G-PYVRSFMDRL');
-  </script>
+    <!-- <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="https://fhahlbohm.github.io/inpc/"/>
+    <meta name="twitter:title" content="INPC: Implicit Neural Point Clouds for Radiance Field Rendering"/>
+    <meta name="twitter:description" content="Representing a point cloud implicitly provides better image quality for point-based radiance field methods."/>
+    <meta name="twitter:image" content="https://fhahlbohm.github.io/inpc/assets/inpc_model_tw.jpg"/> -->
 
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
+    <!-- <link rel="shortcut icon" href="assets/inpc_icon.ico" type="image/x-icon"> -->
 
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.svg">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-  </script>
-  <script type="text/javascript"
-    src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-  </script>
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/index.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/styles.css"/>
 </head>
 
 <body>
-
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://keunhong.com">
-      <span class="icon">
-          <i class="fas fa-home"></i>
-      </span>
-      </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More Research
-        </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://hd-fusion.github.io">
-            HDFusion
-          </a>
-          <a class="navbar-item" href="https://3dgir.github.io">
-            GIR
-          </a>
-          <a class="navbar-item" href="https://3d-aigc.github.io/GEA">
-            GEA
-          </a>
-          <!-- <a class="navbar-item" href="https://latentfusion.github.io">
-            LatentFusion
-          </a>
-          <a class="navbar-item" href="https://photoshape.github.io">
-            PhotoShape
-          </a> -->
+<div class="container" id="main">
+    <div class="row">
+        <h2 class="col-md-12 text-center">
+            <b>XLD</b>: A Cross-Lane Dataset for Benchmarking Novel Driving View Synthesis<br>
+            <small>
+                arXiv
+            </small>
+        </h2>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <ul class="list-inline">
+                <li>
+                    <a style="text-decoration:none" href="http://lifuguan.github.io/">Hao Li</a><sup>1,2</sup>
+                </li>
+                <li>
+                    <a style="text-decoration:none" href="">Ming Yuan</a>
+                </li>
+                <li>
+                    <a style="text-decoration:none" href="">Yan Zhang</a><sup>2</sup>
+                </li>
+                <li>
+                    <a style="text-decoration:none" href="https://chenming-wu.github.io/">Chenming Wu</a><sup>2</sup>
+                </li>
+                <li>
+                    <a style="text-decoration:none" href="https://openreview.net/profile?id=~Chen_Zhao9">Chen Zhao</a><sup>2</sup>
+                </li>
+                
+                <li>
+                    <a style="text-decoration:none" href="https://openreview.net/profile?id=~Haocheng_Feng1">Haocheng Feng</a><sup>2</sup>
+                </li>
+                <li>
+                    <a style="text-decoration:none" href="https://scholar.google.com/citations?user=1wzEtxcAAAAJ&hl=zh-CN">Errui Ding</a><sup>2</sup>
+                </li>
+                <li>
+                    <a style="text-decoration:none" href="https://zdw-nwpu.github.io/dingwenz.github.com/">Dingwen Zhang</a><sup>1</sup>
+                </li>
+                <li>
+                    <a style="text-decoration:none" href="https://jingdongwang2017.github.io/">Jingdong Wang</a><sup>2</sup>
+                </li>
+            </ul>
+            <sup>1</sup>Brain Lab, NWPU &nbsp; &nbsp;
+            <sup>2</sup>Baidu VIS<br>
         </div>
-      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 text-center">
+            <ul class="nav nav-pills nav-justified">
+                <li>
+                    <a href="">
+                        <img src="assets/inpc_paper.jpg" height="60px">
+                        <h4><strong>Paper</strong></h4>
+                    </a>
+                </li>
+                <li>
+                    <a href="#dataset">
+                        <img src="assets/dataset.png" height="60px">
+                        <h4><strong>Dataset</strong></h4>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <img src="assets/github.png" height="60px">
+                        <h4><strong>Code (Coming)</strong></h4>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 
-  </div>
-</nav>
+    <!-- <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <video id="v0" width="100%" autoplay loop muted>
+                <source src="assets/inpc_teaser.mp4" type="video/mp4"/>
+            </video>
+        </div>
+    </div> -->
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h3>Abstract</h3>
+            <hr>
+            <p class="text-justify">
+                Thoroughly testing autonomy systems is crucial in the pursuit of safe autonomous driving vehicles. It necessitates creating safety-critical scenarios that go beyond what can be safely collected from real-world data, as many of these scenarios occur infrequently on public roads. However, the evaluation of most existing NVS methods relies on sporadic sampling of image frames from the training data, comparing the rendered images with ground truth images using metrics. Unfortunately, this evaluation protocol falls short of meeting the actual requirements in closed-loop simulations. Specifically, the true application demands the capability to render novel views that extend beyond the original trajectory (such as cross-lane views), which are challenging to capture in the real world. To address this, this paper presents a novel driving view synthesis dataset and benchmark specifically designed for autonomous driving simulations. This dataset is unique as it includes testing images captured by deviating from the training trajectory by 1-4 meters. It comprises six sequences encompassing various time and weather conditions. Each sequence contains 450 training images, 150 testing images, and their corresponding camera poses and intrinsic parameters. Leveraging this novel dataset, we establish the first realistic benchmark for evaluating existing NVS approaches under front-only and multi-camera settings. The experimental findings underscore the significant gap that exists in current approaches, revealing their inadequate ability to fulfill the demanding prerequisites of cross-lane or closed-loop simulation.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h3>Motivation</h3>
+            <hr>
+            <img src="assets/comparision_1.jpg" style="width:100%" class="center">
+            <p class="text-justify">
+                <br>
+                The true application demands the capability to render novel views that extend beyond the original trajectory (such as cross-lane views), which are challenging to capture in the real world. Our dataset and benchmark focus on <b>assessing the NVS capability specifically for cameras in cross-lane scenes</b>. The primary objective is to evaluate the performance of cameras in generating accurate and realistic novel views in scenarios involving multiple lanes. 
+                <br>
+            </p>
+        </div>
+    </div>
 
 
-<section class="hero">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
-          <h1 class="title is-2 publication-title">XLD: A Cross-Lane Dataset for Benchmarking Novel Driving View Synthesis</h1>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <a href="http://lifuguan.github.io/">Hao Li</a><sup>1,2</sup>,</span>
-              <span class="author-block">
-                <a href="">Ming Yuan</a><sup>2</sup>,</span>
-                <span class="author-block">
-                  <a href="">Yan Zhang</a><sup>2</sup>,</span>
-            <span class="author-block">
-              <a href="https://chenming-wu.github.io/">Chenming Wu</a><sup>2</sup>,</span>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h3>Sensor Setup and Scenes</h3>
+            <hr>
+            <img src="assets/vehicle_setup.jpg" style="width:100%" class="center">
+            <p class="text-justify">
+                <br>
+                Three cameras and one LiDAR and their setups in our data generation. Our datasets encompass six distinct scenes, where each scene involves the vehicle following an on-road trajectory. To generate training data for the cameras and LiDAR sensor, we sample $150$ waypoints along each trajectory. The trajectory is visually emphasized using the color red.
+                <br>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h3>Offset-based Evaluation</h3>
+            <hr>
+            <img src="assets/offset.jpg" style="width:70%" class="center">
+            <p class="text-justify">
+                <br>
+                The composition of our training set and testing set. The training set consists of three RGB cameras ('front', 'left-front', 'right-front') mounted on our vehicle lane. For the test set, we sample image sequences along trajectories that run parallel to the vehicle's route. This encompasses four distinct test trajectories, each offset from the vehicle's trajectory by 0 meters, 1 meter, 2 meters, and 4 meters, respectively. The sampling interval for the test set is five times the sampling interval used for the training set. 
+                <br>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h3>Benchmark Result</h3>
+            <hr>
+            <img src="assets/front_only.jpg" style="width:70%" class="center">
+            <p class="text-justify">
+            </p>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-md-10 col-md-offset-1">
+            <h3>Visualization - EmerNeRF</h3>
+            <hr>
+            <div id="emernerf-carousel" class="carousel slide" data-ride="carousel" data-interval=18000>
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                  <li data-target="#emernerf-carousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#emernerf-carousel" data-slide-to="1"></li>
+                  <li data-target="#emernerf-carousel" data-slide-to="2"></li>
+                  <li data-target="#emernerf-carousel" data-slide-to="3"></li>
+                  <li data-target="#emernerf-carousel" data-slide-to="4"></li>
+                </ol>
+  
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                  <div class="item active">
+                      <div class="row text-center">
+                          <div class="col-md-4">
+                              <video id="r00"  width="90%" autoplay loop muted>
+                                  <source src="assets/results_carousel/emerNerf/town1_cam1/video_rgb_pred_town1_cam1_offset0.mp4" type="video/mp4"/>
+                              </video>
+                          </div>
+                          <div class="col-md-4">
+                            <video id="r01" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/emerNerf/town1_cam1/video_rgb_pred_town1_cam1_offset2.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                          <div class="col-md-4">
+                              <video id="r02" width="90%" autoplay loop muted>
+                                  <source src="assets/results_carousel/emerNerf/town1_cam1/video_rgb_pred_town1_cam1_offset4.mp4" type="video/mp4"/>
+                              </video>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="item">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <video id="r03"  width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/PVG/town1_cam1/video_depth_pred_town1_cam1_offset0.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                        <div class="col-md-4">
+                          <video id="r04" width="90%" autoplay loop muted>
+                              <source src="assets/results_carousel/PVG/town1_cam1/video_depth_pred_town1_cam1_offset2.mp4" type="video/mp4"/>
+                          </video>
+                      </div>
+                        <div class="col-md-4">
+                            <video id="r05" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/PVG/town1_cam1/video_depth_pred_town1_cam1_offset4.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <video id="r03"  width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/PVG/town4_cam1/video_rgb_pred_town4_cam1_offset0.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                        <div class="col-md-4">
+                          <video id="r04" width="90%" autoplay loop muted>
+                              <source src="assets/results_carousel/PVG/town4_cam1/video_rgb_pred_town4_cam1_offset2.mp4" type="video/mp4"/>
+                          </video>
+                      </div>
+                        <div class="col-md-4">
+                            <video id="r05" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/PVG/town4_cam1/video_rgb_pred_town4_cam1_offset4.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <video id="r03"  width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/PVG/town4_cam1/video_depth_pred_town4_cam1_offset0.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                        <div class="col-md-4">
+                          <video id="r04" width="90%" autoplay loop muted>
+                              <source src="assets/results_carousel/PVG/town4_cam1/video_depth_pred_town4_cam1_offset2.mp4" type="video/mp4"/>
+                          </video>
+                      </div>
+                        <div class="col-md-4">
+                            <video id="r05" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/PVG/town4_cam1/video_depth_pred_town4_cam1_offset4.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <!-- Controls -->
+                <a class="left carousel-control" style="background-image: none; width: 5%;" href="#emernerf-carousel" role="button" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" style="background-image: none; width: 5%;" href="#emernerf-carousel" role="button" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+            </div>
             
-              <span class="author-block">
-                <a href="https://openreview.net/profile?id=~Chen_Zhao9">Chen Zhao</a><sup>2</sup>,
-              </span>
-              <span class="author-block">
-                <a href="">Chunyu Song</a><sup>2</sup>,</span>
-              <span class="author-block">
-                <a href="https://openreview.net/profile?id=~Haocheng_Feng1">Haocheng Feng</a><sup>2</sup>,
-              </span>
-              <span class="author-block">
-                <a href="https://scholar.google.com/citations?user=1wzEtxcAAAAJ&hl=zh-CN">Errui Ding</a><sup>2</sup>,
-              </span>
-
-            <span class="author-block">
-              <a href="https://zdw-nwpu.github.io/dingwenz.github.com/">Dingwen Zhang</a><sup>1</sup>,</span>
-              <span class="author-block">
-                <a href="https://jingdongwang2017.github.io/">Jingdong Wang</a><sup>2</sup>
-              </span>
-
-              
-          </div>
-
-          <div class="is-size-5 publication-authors">
-            <sup>1</sup><span class="author-block">NWPU</span>, 
-            <sup>2</sup><span class="author-block">Baidu VIS</span>
-          </div>
-          <div class="is-size-6 publication-authors">
-            <!-- <sup>*</sup><span class="author-block">Corresponding authors</span> -->
-          </div>
-
-
-          <div class="column has-text-centered">
-            <div class="publication-links">
-              <!-- PDF Link. -->
-              <span class="link-block">
-                <a href="https://arxiv.org/ps/xx.xx"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="https://arxiv.org/abs/xx.xx"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
-                </a>
-              </span>
-              <!-- Video Link. -->
-              <!-- <span class="link-block">
-                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-youtube"></i>
-                  </span>
-                  <span>Video</span>
-                </a>
-              </span> -->
-              <!-- Code Link. -->
-              <span class="link-block">
-                <a href="https://3d-aigc.github.io/OpenGaussian"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Dataset and Code</span>
-                  </a>
-              </span>
-              <!-- Dataset Link. -->
-              <span class="link-block">
-                <!-- <a href="https://github.com/google/nerfies/releases/tag/0.1"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="far fa-images"></i>
-                  </span>
-                  <span>Data</span>
-                  </a> -->
-            </div>
-
-          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-steve">
-          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/steve.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-chair-tp">
-          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/chair-tp.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-shiba">
-          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/shiba.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-fullbody">
-          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/fullbody.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-blueshirt">
-          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/blueshirt.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-mask">
-          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/mask.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-coffee">
-          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/coffee.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-toby">
-          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/toby2.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
-
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          Thoroughly testing autonomy systems is crucial in the pursuit of safe autonomous driving vehicles. It necessitates creating safety-critical scenarios that go beyond what can be safely collected from real-world data, as many of these scenarios occur infrequently on public roads. However, the evaluation of most existing NVS methods relies on sporadic sampling of image frames from the training data, comparing the rendered images with ground truth images using metrics. Unfortunately, this evaluation protocol falls short of meeting the actual requirements in closed-loop simulations. Specifically, the true application demands the capability to render novel views that extend beyond the original trajectory (such as cross-lane views), which are challenging to capture in the real world. To address this, this paper presents a novel driving view synthesis dataset and benchmark specifically designed for autonomous driving simulations. This dataset is unique as it includes testing images captured by deviating from the training trajectory by $1-4$ meters. It comprises six sequences encompassing various time and weather conditions. Each sequence contains $450$ training images, $150$ testing images, and their corresponding camera poses and intrinsic parameters. Leveraging this novel dataset, we establish the first realistic benchmark for evaluating existing NVS approaches under front-only and multi-camera settings. The experimental findings underscore the significant gap that exists in current approaches, revealing their inadequate ability to fulfill the demanding prerequisites of cross-lane or closed-loop simulation.
-        </div>
-      </div>
-    </div>
-    <!--/ Abstract. -->
-
-    <!-- Paper video. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <!-- <h2 class="title is-3">Video</h2> -->
-        <!-- <div class="publication-video">
-          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div> -->
         
-      </div>
-    </div>
-    <!--/ Paper video. -->
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Animation. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Benchmark</h2>
-        <!-- Interpolating. -->
-          <div class="content has-text-justified">
-          <img src="./static/images/pixel_3d_level.PNG" 
-               class="interpolation-image" 
-               alt="Interpolate start reference image" 
-               style="width: 80%; height: auto; display: block; margin: 0 auto;">
-          <p class="video-description has-text-centered">Two types of open-vocabulary understanding based on 3DGS.
-            <b>(a) 2D pixel-level understanding</b>. The language-embedded 3D Gaussians are rendered into 2D feature maps, obtaining regions related to the query text as results. 
-            <b>(b) 3D point-level understanding (ours)</b>, which selects Gaussians in 3D space related to the query text as results.</p>
-          <img src="./static/images/framework.PNG" 
-               class="interpolation-image" 
-               alt="Interpolate start reference image" 
-               style="width: 80%; height: auto; display: block; margin: 0 auto;">
-          <p class="video-description has-text-centered"><b>Framework.</b> (a) We use the view-independent SAM boolean mask to train 3D instance features with 3D consistency for 3DGS. 
-            (b) We propose a two-level codebook for discretizing instance features from coarse to fine. 
-            (c) An instance-level 3D-2D feature association method to associate 2D CLIP features with 3D points without training.</p>
-          <img src="./static/images/point_feat.PNG" 
-               class="interpolation-image" 
-               alt="Interpolate start reference image" 
-               style="width: 80%; height: auto; display: block; margin: 0 auto;">
-          <p class="video-description has-text-centered"><b>Visualization of 3D point features at different stages.</b> 
-            (a) Reference image/mesh; (b) instance features learned from Sec. 3.1; 
-            (c)-(d) Point features after discretization by coarse-level and fine-level codebook (Sec. 3.2).</p>
-          <img src="./static/images/association.PNG" 
-               class="interpolation-image" 
-               alt="Interpolate start reference image" 
-               style="width: 80%; height: auto; display: block; margin: 0 auto;">
-          <p class="video-description has-text-centered"><b>3D point-2D CLIP feature association (Sec. 3.2).</b>
-             We render 3D instance points to an arbitrary training view, and associate 3D points with 2D masks based on the principle of joint IoU and feature similarity, 
-             which have already been extracted with mask-level CLIP features, thereby indirectly associating 3D points with CLIP features.</p>
-<br><br>
-
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Videos
-      </h2>
-      <video id="teaser1" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/point_feature_22M.mp4"
-                type="video/mp4">
-      </video>
-      <p class="video-description has-text-centered">Instance <b>feature visualization</b> of 3D points.</p>
-      <video id="teaser2" autoplay muted loop playsinline style="height: 60%;">
-        <source src="./static/videos/scene_edit_6M.mp4"
-                type="video/mp4">
-      </video>
-      <p class="video-description has-text-centered">Demonstration of <b>scene editing</b> capabilities. Based on the original scene reconstructed with OpenGaussian, 
-        we can select objects for removal, insertion, or color modification.</p>
-      <video id="teaser3" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/object_selection_11M.mp4"
-                type="video/mp4">
-      </video>
-      <p class="video-description has-text-centered">Text/click-based <b>3D object Selection</b>.</p>
-    </div>
-  </div>
-</section>
-
-        <!-- <div class="columns is-vcentered interpolation-panel">
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_start.jpg"
-                 class="interpolation-image"
-                 alt="Interpolate start reference image."/>
-            <p>Start Frame</p>
-          </div>
-          <div class="column interpolation-video-column">
-            <div id="interpolation-image-wrapper">
-              Loading...
-            </div>
-            <input class="slider is-fullwidth is-large is-info"
-                   id="interpolation-slider"
-                   step="1" min="0" max="100" value="0" type="range">
-          </div>
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_end.jpg"
-                 class="interpolation-image"
-                 alt="Interpolation end reference image."/>
-            <p class="is-bold">End Frame</p>
-          </div>
-        </div> -->
-        <br/>
-        <!--/ Interpolating. -->
-
-        <!-- Re-rendering. -->
-        <!-- <h3 class="title is-4">Re-rendering the input video</h3>
-        <div class="content has-text-justified">
-          <p>
-            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
-            viewpoint such as a stabilized camera by playing back the training deformations.
-          </p>
-        </div>
-        <div class="content has-text-centered">
-          <video id="replay-video"
-                 controls
-                 muted
-                 preload
-                 playsinline
-                 width="75%">
-            <source src="./static/videos/replay.mp4"
-                    type="video/mp4">
-          </video>
-        </div> -->
-        <!--/ Re-rendering. -->
-
-      </div>
-    </div>
-    <!--/ Animation. -->
-    <div class="columns is-centered">
-
-      <!-- Visual Effects. -->
-     
-    <!--/ Matting. -->
-  </div>
-</section>
-
-
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>@article{wu2024opengaussian,
-      title={OpenGaussian: Towards Point-Level 3D Gaussian-based Open Vocabulary Understanding}, 
-      author={Yanmin Wu and Jiarui Meng and Haijie Li and Chenming Wu and Yahao Shi and Xinhua Cheng and Chen Zhao and Haocheng Feng and Errui Ding and Jingdong Wang and Jian Zhang},
-      year={2024},
-      eprint={2406.02058},
-}</code></pre>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="container">
-    <div class="content has-text-centered">
-      <a class="icon-link"
-         href="./static/videos/nerfies_paper.pdf">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-          <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-          
-          <p>
-            This website borrows the template from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> and <a href="https://hypernerf.github.io/">HyperNeRF</a>.
-          </p>
-        </div>
-      </div>
-      <a href="https://mapmyvisitors.com/web/1bw4d"  title="Visit tracker"><img src="https://mapmyvisitors.com/map.png?d=V1QdKPCWxEKaqBChctRV5hdvmreU-vbh4a-rO_5Occc&cl=ffffff" /></a>
     </div>
     
-  </div>
-</footer>
+    <div class="row text-center">
+        <div class="col-md-10 col-md-offset-1">
+            <h3>Visualization - PVG</h3>
+            <hr>
+            <div id="results-carousel" class="carousel slide" data-ride="carousel" data-interval=18000>
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                  <li data-target="#results-carousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#results-carousel" data-slide-to="1"></li>
+                  <li data-target="#results-carousel" data-slide-to="2"></li>
+                  <li data-target="#results-carousel" data-slide-to="3"></li>
+                  <li data-target="#results-carousel" data-slide-to="4"></li>
+                </ol>
+  
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                  <div class="item active">
+                      <div class="row text-center">
+                          <div class="col-md-4">
+                              <video id="r00"  width="90%" autoplay loop muted>
+                                  <source src="assets/results_carousel/emerNerf/town1_cam1/video_rgb_pred_town1_cam1_offset0.mp4" type="video/mp4"/>
+                              </video>
+                          </div>
+                          <div class="col-md-4">
+                            <video id="r01" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/emerNerf/town1_cam1/video_rgb_pred_town1_cam1_offset2.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                          <div class="col-md-4">
+                              <video id="r02" width="90%" autoplay loop muted>
+                                  <source src="assets/results_carousel/emerNerf/town1_cam1/video_rgb_pred_town1_cam1_offset4.mp4" type="video/mp4"/>
+                              </video>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="item">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <video id="r03"  width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/PVG/town1_cam1/video_depth_pred_town1_cam1_offset0.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                        <div class="col-md-4">
+                          <video id="r04" width="90%" autoplay loop muted>
+                              <source src="assets/results_carousel/PVG/town1_cam1/video_depth_pred_town1_cam1_offset2.mp4" type="video/mp4"/>
+                          </video>
+                      </div>
+                        <div class="col-md-4">
+                            <video id="r05" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/PVG/town1_cam1/video_depth_pred_town1_cam1_offset4.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <video id="r03"  width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/PVG/town4_cam1/video_rgb_pred_town4_cam1_offset0.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                        <div class="col-md-4">
+                          <video id="r04" width="90%" autoplay loop muted>
+                              <source src="assets/results_carousel/PVG/town4_cam1/video_rgb_pred_town4_cam1_offset2.mp4" type="video/mp4"/>
+                          </video>
+                      </div>
+                        <div class="col-md-4">
+                            <video id="r05" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/PVG/town4_cam1/video_rgb_pred_town4_cam1_offset4.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <video id="r03"  width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/PVG/town4_cam1/video_depth_pred_town4_cam1_offset0.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                        <div class="col-md-4">
+                          <video id="r04" width="90%" autoplay loop muted>
+                              <source src="assets/results_carousel/PVG/town4_cam1/video_depth_pred_town4_cam1_offset2.mp4" type="video/mp4"/>
+                          </video>
+                      </div>
+                        <div class="col-md-4">
+                            <video id="r05" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/PVG/town4_cam1/video_depth_pred_town4_cam1_offset4.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <!-- Controls -->
+                <a class="left carousel-control" style="background-image: none; width: 5%;" href="#results-carousel" role="button" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" style="background-image: none; width: 5%;" href="#results-carousel" role="button" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+            </div>
+            
+        </div>
+        
+    </div>
+
+
+    <div class="row text-center">
+        <div class="col-md-10 col-md-offset-1">
+            <h3>Visualization - GaussianPro</h3>
+            <hr>
+            <div id="GaussianPro-carousel" class="carousel slide" data-ride="carousel" data-interval=18000>
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                  <li data-target="#GaussianPro-carousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#GaussianPro-carousel" data-slide-to="1"></li>
+                  <li data-target="#GaussianPro-carousel" data-slide-to="2"></li>
+                  <li data-target="#GaussianPro-carousel" data-slide-to="3"></li>
+                  <li data-target="#GaussianPro-carousel" data-slide-to="4"></li>
+                </ol>
+  
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                  <div class="item active">
+                      <div class="row text-center">
+                          <div class="col-md-4">
+                              <video id="r00"  width="90%" autoplay loop muted>
+                                  <source src="assets/results_carousel/gs_pro/town1_cam1/video_rgb_pred_town1_cam1_offset0.mp4" type="video/mp4"/>
+                              </video>
+                          </div>
+                          <div class="col-md-4">
+                            <video id="r01" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/gs_pro/town1_cam1/video_rgb_pred_town1_cam1_offset2.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                          <div class="col-md-4">
+                              <video id="r02" width="90%" autoplay loop muted>
+                                  <source src="assets/results_carousel/gs_pro/town1_cam1/video_rgb_pred_town1_cam1_offset4.mp4" type="video/mp4"/>
+                              </video>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="item">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <video id="r03"  width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/gs_pro/town1_cam1/video_depth_pred_town1_cam1_offset0.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                        <div class="col-md-4">
+                          <video id="r04" width="90%" autoplay loop muted>
+                              <source src="assets/results_carousel/gs_pro/town1_cam1/video_depth_pred_town1_cam1_offset2.mp4" type="video/mp4"/>
+                          </video>
+                      </div>
+                        <div class="col-md-4">
+                            <video id="r05" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/gs_pro/town1_cam1/video_depth_pred_town1_cam1_offset4.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <video id="r03"  width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/gs_pro/town4_cam1/video_rgb_pred_town4_cam1_offset0.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                        <div class="col-md-4">
+                          <video id="r04" width="90%" autoplay loop muted>
+                              <source src="assets/results_carousel/gs_pro/town4_cam1/video_rgb_pred_town4_cam1_offset2.mp4" type="video/mp4"/>
+                          </video>
+                      </div>
+                        <div class="col-md-4">
+                            <video id="r05" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/gs_pro/town4_cam1/video_rgb_pred_town4_cam1_offset4.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <video id="r03"  width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/gs_pro/town4_cam1/video_depth_pred_town4_cam1_offset0.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                        <div class="col-md-4">
+                          <video id="r04" width="90%" autoplay loop muted>
+                              <source src="assets/results_carousel/gs_pro/town4_cam1/video_depth_pred_town4_cam1_offset2.mp4" type="video/mp4"/>
+                          </video>
+                      </div>
+                        <div class="col-md-4">
+                            <video id="r05" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/gs_pro/town4_cam1/video_depth_pred_town4_cam1_offset4.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <!-- Controls -->
+                <a class="left carousel-control" style="background-image: none; width: 5%;" href="#GaussianPro-carousel" role="button" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" style="background-image: none; width: 5%;" href="#GaussianPro-carousel" role="button" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+            </div>
+            
+        </div>
+        
+    </div>
+
+
+    <div class="row text-center">
+        <div class="col-md-10 col-md-offset-1">
+            <h3>Visualization - UC-NeRF</h3>
+            <hr>
+            <div id="ucnerf-carousel" class="carousel slide" data-ride="carousel" data-interval=18000>
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                  <li data-target="#ucnerf-carousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#ucnerf-carousel" data-slide-to="1"></li>
+                  <li data-target="#ucnerf-carousel" data-slide-to="2"></li>
+                  <li data-target="#ucnerf-carousel" data-slide-to="3"></li>
+                  <li data-target="#ucnerf-carousel" data-slide-to="4"></li>
+                </ol>
+  
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                  <div class="item active">
+                      <div class="row text-center">
+                          <div class="col-md-4">
+                              <video id="r00"  width="90%" autoplay loop muted>
+                                  <source src="assets/results_carousel/ucnerf/town1_cam1/video_rgb_pred_town1_cam1_offset0.mp4" type="video/mp4"/>
+                              </video>
+                          </div>
+                          <div class="col-md-4">
+                            <video id="r01" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/ucnerf/town1_cam1/video_rgb_pred_town1_cam1_offset2.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                          <div class="col-md-4">
+                              <video id="r02" width="90%" autoplay loop muted>
+                                  <source src="assets/results_carousel/ucnerf/town1_cam1/video_rgb_pred_town1_cam1_offset4.mp4" type="video/mp4"/>
+                              </video>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="item">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <video id="r03"  width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/ucnerf/town1_cam1/video_depth_pred_town1_cam1_offset0.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                        <div class="col-md-4">
+                          <video id="r04" width="90%" autoplay loop muted>
+                              <source src="assets/results_carousel/ucnerf/town1_cam1/video_depth_pred_town1_cam1_offset2mp4.mp4" type="video/mp4"/>
+                          </video>
+                      </div>
+                        <div class="col-md-4">
+                            <video id="r05" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/ucnerf/town1_cam1/video_depth_pred_town1_cam1_offset4.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <video id="r03"  width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/ucnerf/town4_cam1/video_rgb_pred_town4_cam1_offset0.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                        <div class="col-md-4">
+                          <video id="r04" width="90%" autoplay loop muted>
+                              <source src="assets/results_carousel/ucnerf/town4_cam1/video_rgb_pred_town4_cam1_offset2.mp4" type="video/mp4"/>
+                          </video>
+                      </div>
+                        <div class="col-md-4">
+                            <video id="r05" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/ucnerf/town4_cam1/video_rgb_pred_town4_cam1_offset4.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <video id="r03"  width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/ucnerf/town4_cam1/video_depth_pred_town4_cam1_offset0.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                        <div class="col-md-4">
+                          <video id="r04" width="90%" autoplay loop muted>
+                              <source src="assets/results_carousel/ucnerf/town4_cam1/video_depth_pred_town4_cam1_offset2.mp4" type="video/mp4"/>
+                          </video>
+                      </div>
+                        <div class="col-md-4">
+                            <video id="r05" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/ucnerf/town4_cam1/video_depth_pred_town4_cam1_offset4.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <!-- Controls -->
+                <a class="left carousel-control" style="background-image: none; width: 5%;" href="#ucnerf-carousel" role="button" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" style="background-image: none; width: 5%;" href="#ucnerf-carousel" role="button" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+            </div>
+            
+        </div>
+        
+    </div>
+
+    <div class="row text-center">
+        <div class="col-md-10 col-md-offset-1">
+            <h3>Visualization - DC-Gaussian</h3>
+            <hr>
+            <div id="dcgaussian-carousel" class="carousel slide" data-ride="carousel" data-interval=18000>
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                  <li data-target="#dcgaussian-carousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#dcgaussian-carousel" data-slide-to="1"></li>
+                  <li data-target="#dcgaussian-carousel" data-slide-to="2"></li>
+                  <li data-target="#dcgaussian-carousel" data-slide-to="3"></li>
+                  <li data-target="#dcgaussian-carousel" data-slide-to="4"></li>
+                </ol>
+  
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                  <div class="item active">
+                      <div class="row text-center">
+                          <div class="col-md-4">
+                              <video id="r00"  width="90%" autoplay loop muted>
+                                  <source src="assets/results_carousel/dc-gaussian/town1_cam1/video_rgb_pred_town1_cam1_offset0.mp4" type="video/mp4"/>
+                              </video>
+                          </div>
+                          <div class="col-md-4">
+                            <video id="r01" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/dc-gaussian/town1_cam1/video_rgb_pred_town1_cam1_offset2.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                          <div class="col-md-4">
+                              <video id="r02" width="90%" autoplay loop muted>
+                                  <source src="assets/results_carousel/dc-gaussian/town1_cam1/video_rgb_pred_town1_cam1_offset4.mp4" type="video/mp4"/>
+                              </video>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="item">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <video id="r03"  width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/dc-gaussian/town1_cam1/video_depth_pred_town1_cam1_offset0.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                        <div class="col-md-4">
+                          <video id="r04" width="90%" autoplay loop muted>
+                              <source src="assets/results_carousel/dc-gaussian/town1_cam1/video_depth_pred_town1_cam1_offset2.mp4" type="video/mp4"/>
+                          </video>
+                      </div>
+                        <div class="col-md-4">
+                            <video id="r05" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/dc-gaussian/town1_cam1/video_depth_pred_town1_cam1_offset4.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <video id="r03"  width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/dc-gaussian/town4_cam1/video_rgb_pred_town4_cam1_offset0.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                        <div class="col-md-4">
+                          <video id="r04" width="90%" autoplay loop muted>
+                              <source src="assets/results_carousel/dc-gaussian/town4_cam1/video_rgb_pred_town4_cam1_offset2.mp4" type="video/mp4"/>
+                          </video>
+                      </div>
+                        <div class="col-md-4">
+                            <video id="r05" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/dc-gaussian/town4_cam1/video_rgb_pred_town4_cam1_offset4.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <video id="r03"  width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/dc-gaussian/town4_cam1/video_depth_pred_town4_cam1_offset0.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                        <div class="col-md-4">
+                          <video id="r04" width="90%" autoplay loop muted>
+                              <source src="assets/results_carousel/dc-gaussian/town4_cam1/video_depth_pred_town4_cam1_offset2.mp4" type="video/mp4"/>
+                          </video>
+                      </div>
+                        <div class="col-md-4">
+                            <video id="r05" width="90%" autoplay loop muted>
+                                <source src="assets/results_carousel/dc-gaussian/town4_cam1/video_depth_pred_town4_cam1_offset4.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <!-- Controls -->
+                <a class="left carousel-control" style="background-image: none; width: 5%;" href="#dcgaussian-carousel" role="button" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" style="background-image: none; width: 5%;" href="#dcgaussian-carousel" role="button" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+            </div>
+            
+        </div>
+        
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h3>Dataset Download</h3>
+            
+            <hr>
+            <p class="text-justify">
+                <br>
+                Our dataset is provided in COLMAP format. Please refer to <a href="https://github.com/colmap/colmap">COLMAP</a> for more details about the dataset format.
+                <br>
+                <a name="dataset"></a>
+                Download link: <a href="">TBA Soon (Uploading)</a>.
+                <br>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h3>Citation</h3>
+            <hr>
+            <pre><code>@article{li2024xld,
+    title={XLD: A Cross-Lane Dataset for Benchmarking Novel Driving View Synthesis},
+    author={Hao Li and Ming Yuan and Yan Zhang and Chenming Wu and Chen Zhao and Chunyu Song and Haocheng Feng and Errui Ding and Dingwen Zhang and Jingdong Wang},
+    journal={arXiv},
+    year={2024}
+}</code></pre>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            
+            <p class="text-justify">
+                
+                The website template was adapted from <a href="https://jonbarron.info/zipnerf/">Zip-NeRF</a>, who
+                borrowed from <a href="http://mgharbi.com/">Michaël Gharbi</a> and <a
+                    href="https://dorverbin.github.io/refnerf">Ref-NeRF</a>.
+                For the comparison sliders we follow <a href="https://m-niemeyer.github.io/radsplat/">RadSplat</a> and
+                use <a href="https://github.com/sneas/img-comparison-slider">img-comparison-slider</a>.
+            </p>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
