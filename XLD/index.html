@@ -64,7 +64,9 @@
                 <li>
                     <a style="text-decoration:none" href="https://openreview.net/profile?id=~Chen_Zhao9">Chen Zhao</a><sup>2</sup>
                 </li>
-                
+                <li>
+                  <a style="text-decoration:none" href="">Chunyu Song</a><sup>2</sup>
+              </li>
                 <li>
                     <a style="text-decoration:none" href="https://openreview.net/profile?id=~Haocheng_Feng1">Haocheng Feng</a><sup>2</sup>
                 </li>
@@ -732,8 +734,21 @@
                 Our dataset is provided in COLMAP format. Please refer to <a href="https://github.com/colmap/colmap">COLMAP</a> for more details about the dataset format.
                 <br>
                 <a name="dataset"></a>
-                Download link: <a href="">TBA Soon (Uploading)</a>.
+                <b>Download link:</b> <a href="">TBA Soon (Uploading)</a>.
                 <br>
+                <b>Format:</b>
+                <pre>
+data
+└── {sequence_id}
+    ├── train
+    ├── raw
+    │   ├── calibration
+    │   ├── data_3d_raw
+    │   └── data_poses
+    ├── transforms_{sequence_id}test.json
+    ├── transforms_{sequence_id}train.json
+    └── transforms_{sequence_id}val.json
+  </pre>
             </p>
         </div>
     </div>
