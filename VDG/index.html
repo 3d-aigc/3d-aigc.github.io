@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="VDG: Vision-Only Dynamic Gaussian for Driving Simulation.">
+  <meta name="keywords" content="3DGS, Driving Simulation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VDG: Vision-Only Dynamic Gaussian for Driving Simulation</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  <script type="text/javascript"
+    src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+</head>
+
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hd-fusion.github.io">
+            HDFusion
+          </a>
+          <a class="navbar-item" href="https://3dgir.github.io">
+            GIR
+          </a>
+          <a class="navbar-item" href="https://3d-aigc.github.io/GEA">
+            GEA
+          </a>
+          <a class="navbar-item" href="https://3d-aigc.github.io/GGRt">
+            GGRt
+          </a>
+          <!-- <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a> -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">VDG: Vision-Only Dynamic Gaussian for Driving Simulation</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="http://lifuguan.github.io/">Hao Li</a>*,</span>
+            <span class="author-block">
+              <a href="">Jingfeng Li</a>*,</span>
+            <span class="author-block">
+              <a href="https://zdw-nwpu.github.io/dingwenz.github.com/">Dingwen Zhang</a>,</span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=eOkkQWUAAAAJ&hl=en&oi=ao">Chenming Wu</a>,
+              </span>
+            <span class="author-block">
+              <a href="https://jayceeshi.github.io/">Jieqi Shi</a>,
+            </span>
+            <br>
+            <span class="author-block">
+              <a href="https://openreview.net/profile?id=~Chen_Zhao9">Chen Zhao</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://openreview.net/profile?id=~Haocheng_Feng1">Haocheng Feng</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=1wzEtxcAAAAJ&hl=zh-CN">Errui Ding</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://jingdongwang2017.github.io/">Jingdong Wang</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.ae/citations?user=xrqsoesAAAAJ">Junwei Han</a>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Brain and Artificial Intelligence Lab, Northwestern Polytechnical University</span><br>
+            <span class="author-block">Baidu VIS</span><br>
+            <span class="author-block">Aerial Robotics Group, HKUST</span>
+          </div>
+
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2403.10147.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2403.10147"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=4TrQLY6AT7M"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://3d-aigc.github.io/GGRt"
+                   class="external-link button is-normal is-rounded is-light">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (Coming soon)</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <!-- <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+<iframe width="784" height="441" src="https://www.youtube.com/embed/4TrQLY6AT7M?si=DTN5ao4x6ekmoQ-G" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Video (with voiceover)
+      </h2>
+    </div>
+  </div>
+</section>
+<!-- 
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/steve.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/chair-tp.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/shiba.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/fullbody.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/blueshirt.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-mask">
+          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/mask.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-coffee">
+          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/coffee.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-toby">
+          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/toby2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          Dynamic Gaussian splatting has led to impressive scene reconstruction and image synthesis advances in novel views. 
+          Existing methods, however, heavily rely on pre-computed poses and Gaussian initialization by Structure from Motion (SfM) algorithms or expensive sensors. 
+          For the first time, this paper addresses this issue by integrating self-supervised VO into our pose-free dynamic Gaussian method (VDG) to boost pose and depth initialization and static-dynamic decomposition.
+          Moreover, VDG can work with RGB image input only and construct dynamic scenes at a faster speed and larger scenes compared with the pose-free dynamic view-synthesis method. 
+          We demonstrate the robustness of our approach via extensive quantitative and qualitative experiments. 
+          Our results show favorable performance over the state-of-the-art dynamic view synthesis methods.
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <!-- <h2 class="title is-3">Video</h2> -->
+        <!-- <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div> -->
+        
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+
+<img src="./static/images/teaser.jpg" 
+class="interpolation-image" 
+alt="Interpolate start reference image" 
+style="width: 100%; height: auto; display: block; margin: 0 auto;">
+
+<p>
+ Our proposed VDG is crafted to effectively and uniformly reconstruct large, dynamic urban scenes as well as predicted poses with only image input. Here, we showcase our reconstruction results and pose evaluation on KITTI and Waymo datasets, and further compared with the latest pose-free methods. The reconstructed visualizations reveal that our method enables us to model static and dynamic objects without pose priors. Moreover, our method achieves much more accurate pose prediction than other pose-free methods.
+</p>
+
+<br>
+
+</div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Animation. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Method</h2>
+        <!-- Interpolating. -->
+          <div class="content has-text-justified">
+
+<img src="./static/images/framework.jpg" 
+class="interpolation-image" 
+alt="Interpolate start reference image" 
+style="width: 100%; height: auto; display: block; margin: 0 auto;">
+
+The proposed VDG. (a) VDG Initialization: uses the off-the-shelf VO network \(\mathcal{P}(\cdot)\), \(\mathcal{M}(\cdot)\), and \(\mathcal{D}(\cdot)\) to estimate the global poses \(T_t\), motion masks \(M_t\), and depth maps \(D_t\) (see Sec. IV-A.1). Given poses \(T_t\) and corresponding depth maps \(D_t\), we project the depth maps into 3D space to initialize the Gaussian points \(G^k_t =\{\tilde{\mu}^k_t, \Sigma^k, \widetilde{\alpha}^k_t, S^k\}\). Note that the velocity \(v\) of each Gaussian is set to 0 (see Sec. IV-A.2). (b) VDG Training Procedure: Given initialized Gaussians \(G^k_t\), we train our VDG using RGB and depth supervision (see Sec. IV-A.3). Moreover, we apply motion mask supervision to decompose static and dynamic scenes (Sec. IV-B). In the end, we adopt a training strategy to refine vo-given poses \(T_t\) (Sec. IV-C).
+          
+    </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Animation. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Results</h2>
+        <!-- Interpolating. -->
+          <div class="content has-text-justified">
+
+            <img src="./static/images/tab1.png" 
+            class="interpolation-image" 
+            alt="Interpolate start reference image" 
+            style="width: 80%; height: auto; display: block; margin: 0 auto;">
+            
+            
+            Quantitative performance of novel view synthesis on the Waymo Open Dataset and KITTI benchmark. '-' means SplaTAM cannot rendering original resolution image on a single NVIDIA V100 GPU.
+            <br>
+            
+            <img src="./static/images/tab2.png" 
+            class="interpolation-image" 
+            alt="Interpolate start reference image" 
+            style="width: 80%; height: auto; display: block; margin: 0 auto;">
+            
+            Pose accuracy on the Waymo Open and KITTI datasets. Note that the unit of $RPE_r$ is in degrees, ATE is in the ground truth scale and $RPE_t$ is scaled by 100.
+
+      </div>
+    </div>
+</section>
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{li2024GGRt,
+      title={VDG: Vision-Only Dynamic Gaussian for Driving Simulation}, 
+      author={Hao Li and Jingfeng Li and Dingwen Zhang and Chenming Wu and Jieqi Shi and Chen Zhao and Haocheng Feng and Errui Ding and Jingdong Wang and Junwei Han},
+      year={2024},
+      eprint={2406.xxxx},
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          
+          <p>
+            This website borrows the template from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> and <a href="https://hypernerf.github.io/">HyperNeRF</a>.
+          </p>
+        </div>
+      </div>
+      <a href="https://mapmyvisitors.com/web/1bw60"  title="Visit tracker"><img src="https://mapmyvisitors.com/map.png?d=2uXotAqT91vwu1XiZfGxU3AofovkXdo-NhFwmzDFrDI&cl=ffffff" /></a>
+    </div>
+    
+  </div>
+</footer>
+
+</body>
+</html>
