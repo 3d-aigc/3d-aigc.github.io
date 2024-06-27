@@ -100,9 +100,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="https://github.com/lifuguan/XLD_code">
                         <img src="assets/github.png" height="60px">
-                        <h4><strong>Code (Coming)</strong></h4>
+                        <h4><strong>Code</strong></h4>
                     </a>
                 </li>
             </ul>
@@ -738,17 +738,56 @@
                 <br>
                 <b>Format:</b>
                 <pre>
+# Data Preprocess
+1. Unzip the compressed files (e.g. `carla_pic_0603_Town**.zip`).
+2. Download `intrinscis.zip` and `extrinsics.zip` from data link and unzip them. 
+3. Then move `intrinscis` and `extrinsics` to the corresponding folder.
+
+cp -r intrinsics data/carla_pic_0603_Town01
+cp -r extrinsics data/carla_pic_0603_Town01
+cp -r intrinsics data/carla_pic_0603_Town02
+cp -r extrinsics data/carla_pic_0603_Town02
+cp -r intrinsics data/carla_pic_0603_Town03
+cp -r extrinsics data/carla_pic_0603_Town03
+cp -r intrinsics data/carla_pic_0603_Town04
+cp -r extrinsics data/carla_pic_0603_Town04
+cp -r intrinsics data/carla_pic_0603_Town05
+cp -r extrinsics data/carla_pic_0603_Town05
+cp -r intrinsics data/carla_pic_0603_Town10
+cp -r extrinsics data/carla_pic_0603_Town10
+
+The data tree should look like this:
+
+generate_offset_0_test.py
+rename.py
+convert_XLD_transforms.py
 data
-└── {sequence_id}
-    ├── train
-    ├── raw
-    │   ├── calibration
-    │   ├── data_3d_raw
-    │   └── data_poses
-    ├── transforms_{sequence_id}test.json
-    ├── transforms_{sequence_id}train.json
-    └── transforms_{sequence_id}val.json
-  </pre>
+├── carlc_pic_0603_Town0N
+├────────────|─────────── intrinsics
+├────────────|─────────────── | ───────── 0.txt
+├────────────|─────────────── | ───────── 1.txt
+├────────────|─────────────── | ───────── 2.txt
+├────────────|─────────── extrinsics
+├────────────|─────────────── | ───────── 0.txt
+├────────────|─────────────── | ───────── 1.txt
+├────────────|─────────────── | ───────── 2.txt
+├────────────|─────────── train_pic
+├────────────|─────────────── | ───────── camera_extrinscs_00000N.json
+├────────────|─────────────── | ───────── cameraX_0000N.png
+├────────────|─────────────── | ───────── lidar_0000N.ply
+├────────────|─────────── test_pic
+├────────────|─────────────── | ───────── offset_left_0m (don't exist, run generate_offset_0_test.py)
+├────────────|─────────────── | ─────────────── | ───────── camera_extrinscs_00000N.json
+├────────────|─────────────── | ─────────────── | ───────── cameraX_0000N.png
+├────────────|─────────────── | ─────────────── | ───────── lidar_0000N.ply
+├────────────|─────────────── | ───────── offset_left_1m
+├────────────|─────────────── | ─────────────── | ───────── camera_extrinscs_00000N.json
+├────────────|─────────────── | ─────────────── | ───────── cameraX_0000N.png
+├────────────|─────────────── | ─────────────── | ───────── lidar_0000N.ply
+├────────────|─────────────── | ───────── offset_left_4m
+├────────────|─────────────── | ─────────────── | ───────── camera_extrinscs_00000N.json
+├────────────|─────────────── | ─────────────── | ───────── cameraX_0000N.png
+├────────────|─────────────── | ─────────────── | ───────── lidar_0000N.ply</pre>
             </p>
         </div>
     </div>
