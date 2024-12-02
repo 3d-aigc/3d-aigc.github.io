@@ -70,14 +70,14 @@
           More Research
         </a>
         <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://hd-fusion.github.io">
-            HDFusion
+          <a class="navbar-item" href="https://3d-aigc.github.io/OpenGaussian/">
+            OpenGaussian
           </a>
-          <a class="navbar-item" href="https://3dgir.github.io">
-            GIR
+          <a class="navbar-item" href="https://3d-aigc.github.io/GGRt/">
+            GGRt
           </a>
-          <a class="navbar-item" href="https://3d-aigc.github.io/GEA">
-            GEA
+          <a class="navbar-item" href="https://3d-aigc.github.io/XLD/">
+            XLD
           </a>
           <!-- <a class="navbar-item" href="https://latentfusion.github.io">
             LatentFusion
@@ -132,7 +132,7 @@
           <div class="is-size-6 publication-authors">
             <sup>*</sup><span class="author-block">Equal contribution</span>
             <sup>†</sup><span class="author-block">Corresponding author</span>
-            
+
           </div>
 
 
@@ -149,7 +149,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href=" "
+                <a href="https://arxiv.org/abs/2411.19654"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -198,9 +198,9 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <img src="./static/images/teaser.png" 
-               class="interpolation-image" 
-               alt="Interpolate start reference image" 
+      <img src="./static/images/teaser.png"
+               class="interpolation-image"
+               alt="Interpolate start reference image"
                style="width: 100%; height: auto; display: block; margin: 0 auto;"> <br>
           <p class="imgae-description has-text-centered"> Our proposed TexGaussian is capable of generating high-quality PBR material given the input 3D mesh based on the corresponding textual descriptions. The generated results are naturally compatible with modern graphical engines for photo-realistic rendering under different environment maps.</p>
     </div>
@@ -230,7 +230,7 @@
           <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
                   frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div> -->
-        
+
       </div>
     </div>
     <!--/ Paper video. -->
@@ -247,9 +247,9 @@
         <h2 class="title is-3">Method</h2>
         <!-- Interpolating. -->
           <div class="content has-text-justified">
-          <img src="./static/images/method.png" 
-               class="interpolation-image" 
-               alt="Interpolate start reference image" 
+          <img src="./static/images/method.png"
+               class="interpolation-image"
+               alt="Interpolate start reference image"
                style="width: 100%; height: auto; display: block; margin: 0 auto;"> <br>
           <p class="image-description has-text-centered">An overview of our PBR material generation framework. (a) We propose octant-aligned 3D Gaussian Splatting, which positions a 3D Gaussian at the center of each finest leaf node of the constructed octree. Additional channels are added at the end of the Gaussian parameters to model PBR material. (b) We use the 3D U-Net built upon octree-based convolutional networks to predict the Gaussian parameters. Our octree-based 3D U-Net is trained by minimizing the difference on 2D raster images and 3D Gaussian parameters. (c) We bake the multi-view rendered images to the UV space of the input 3D model to realize physically based rendering under new illumination environments.</p>
 <br><br>
@@ -260,24 +260,24 @@
       <h2 class="subtitle has-text-centered">
         <span class="dnerf">More results
       </h2>
-      <img src="./static/images/shapenet.png" 
-               class="interpolation-image" 
-               alt="Interpolate start reference image" 
+      <img src="./static/images/shapenet.png"
+               class="interpolation-image"
+               alt="Interpolate start reference image"
                style="width: 100%; height: auto; display: block; margin: 0 auto;">
           <p class="image-description has-text-centered">RGB texture generative results on ShapeNet.</p> <br>
-      <img src="./static/images/PBR_compare.png" 
-        class="interpolation-image" 
-        alt="Interpolate start reference image" 
+      <img src="./static/images/PBR_compare.png"
+        class="interpolation-image"
+        alt="Interpolate start reference image"
         style="width: 100%; height: auto; display: block; margin: 0 auto;"> <br>
-     <p class="image-description has-text-centered">Our text-conditioned PBR material generation results compared with three state-of-the-art text-conditioned PBR material synthesis methods: Fantasia3D, FlashTex, and DreamMat.</p>
-     <img src="./static/images/diversity.png" 
-        class="interpolation-image" 
-        alt="Interpolate start reference image" 
+     <p class="image-description has-text-centered">Our text-conditioned PBR material generation results compared with three state-of-the-art text-conditioned PBR material synthesis methods: Fantasia3D, FlashTex, and DreamMat.</p> <br>
+     <img src="./static/images/diversity.png"
+        class="interpolation-image"
+        alt="Interpolate start reference image"
       style="width: 100%; height: auto; display: block; margin: 0 auto;"><br>
-      <p class="image-description has-text-centered"><b>Diverse material generation.</b> Our method can generate different materials with different text prompts on the same mesh.</p>
-      <img src="./static/images/suppl_images.png" 
-        class="interpolation-image" 
-        alt="Interpolate start reference image" 
+      <p class="image-description has-text-centered"><b>Diverse material generation.</b> Our method can generate different materials with different text prompts on the same mesh.</p> <br>
+      <img src="./static/images/suppl_images.png"
+        class="interpolation-image"
+        alt="Interpolate start reference image"
       style="width: 100%; height: auto; display: block; margin: 0 auto;">
       <p class="image-description has-text-centered">More generative results of our method on different input 3D models and text prompts.</p>
     </div>
@@ -308,7 +308,7 @@
     <div class="columns is-centered">
 
       <!-- Visual Effects. -->
-     
+
     <!--/ Matting. -->
   </div>
 </section>
@@ -318,25 +318,16 @@
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
     <pre><code>@article{xiong2024texgaussian,
-      title={TexGaussian: Generating High-quality PBR Material via Octree-based 3D Gaussian Splatting}, 
+      title={TexGaussian: Generating High-quality PBR Material via Octree-based 3D Gaussian Splatting},
       author={Bojun Xiong and Jialun Liu and Jiakui Hu and Chenming Wu and Jinbo Wu and Xing Liu and Chen Zhao and Errui Ding and Zhouhui Lian},
       year={2024},
-      <!-- eprint={2406.02058}, -->
+      eprint={2411.19654},
 }</code></pre>
   </div>
 </section>
 
 <footer class="footer">
   <div class="container">
-    <div class="content has-text-centered">
-      <a class="icon-link"
-         href="./static/videos/nerfies_paper.pdf">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="content">
@@ -345,7 +336,7 @@
                                                 href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
             Commons Attribution-ShareAlike 4.0 International License</a>.
           </p>
-          
+
           <p>
             This website borrows the template from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> and <a href="https://hypernerf.github.io/">HyperNeRF</a>.
           </p>
@@ -353,7 +344,7 @@
       </div>
       <a href="https://mapmyvisitors.com/web/1bwxn"  title="Visit tracker"><img src="https://mapmyvisitors.com/map.png?d=BHg2hO5ZjSSIvr4uHSBoF-xKvyphvKUbDtTv4LRp07k&cl=ffffff" /></a>
     </div>
-    
+
   </div>
 </footer>
 
